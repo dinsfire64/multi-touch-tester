@@ -31,7 +31,7 @@
 
 #include <windows.h>
 #include <windowsx.h>
-#include <VersionHelpers.h>
+#include <versionhelpers.h>
 //#include <shellscalingapi.h>
 #include <d3d11.h>
 #define DIRECTINPUT_VERSION 0x0800
@@ -39,10 +39,12 @@
 
 #include <initguid.h>
 #include <devguid.h>
-#include <Devpkey.h>
+#include <devpkey.h>
 #include <hidusage.h>
 #include <hidclass.h>
-#include <SetupAPI.h>
+#include <setupapi.h>
+
+#include <cmath>
 
 struct TOUCH_INFO
 {
@@ -84,10 +86,7 @@ void CreateRenderTarget();
 void CleanupRenderTarget();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                      _In_opt_ HINSTANCE hPrevInstance,
-                      _In_ LPWSTR lpCmdLine,
-                      _In_ int nCmdShow)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int)
 {
     srand((UINT)time(NULL));
     ::InitializeCriticalSection(&g_cs);

@@ -1,5 +1,15 @@
 cmake_minimum_required(VERSION 3.13)
 
+set(CMAKE_SYSTEM_NAME Windows)
+set(CMAKE_SYSTEM_VERSION 10)
+
+set(CMAKE_C_COMPILER x86_64-w64-mingw32-gcc)
+set(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)
+set(CMAKE_RC_COMPILER x86_64-w64-mingw32-windres)
+
+set(CMAKE_C_FLAGS "-O2")
+set(CMAKE_CXX_FLAGS "-O2")
+
 project(MultiTouchTester)
 
 set(VERSION_MAJOR 1)
@@ -42,10 +52,11 @@ target_sources(
 
 target_link_libraries(
     MultiTouchTester
-        SetupAPI.lib
-        Shcore.lib
-        d3d11.lib
-        d3dcompiler.lib
+        setupapi
+        shcore
+        d3d11
+        d3dcompiler
+        xinput
 )
 
 target_compile_definitions(
@@ -53,6 +64,12 @@ target_compile_definitions(
     PRIVATE
         -D_UNICODE
         -DUNICODE
+)
+
+target_link_options(MultiTouchTester PRIVATE
+    -static
+    -static-libgcc
+    -static-libstdc++
 )
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
